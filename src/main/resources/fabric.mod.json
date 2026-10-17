@@ -20,7 +20,8 @@
     ]
   },
   "mixins": [
-    "bedbugs.mixins.json"
+    "bedbugs.mixins.json",
+    "bedbugs-fabric.mixins.json"
   ],
   "accessWidener": "bedbugs.ct",
   "depends": {

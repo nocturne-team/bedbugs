@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.github._0x00acab.bedbugs.mixin",
+  "compatibilityLevel": "${java}",
+  "mixins": [
+    "FabricUseBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
