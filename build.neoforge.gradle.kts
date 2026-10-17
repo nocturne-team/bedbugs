@@ -30,6 +30,7 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.ow2.asm:asm:9.9.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -81,6 +82,10 @@ tasks {
         }
 
         filesMatching("META-INF/neoforge.mods.toml") { expand(props) }
+        // FML 2 (Minecraft 1.20.4) still discovers META-INF/mods.toml.
+        val metadataPath = if (sc.current.parsed < "1.20.5") "META-INF/mods.toml" else "META-INF/neoforge.mods.toml"
+        inputs.property("metadataPath", metadataPath)
+        filesMatching("META-INF/neoforge.mods.toml") { path = metadataPath }
 
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
@@ -101,6 +106,8 @@ tasks {
 
     test {
         useJUnitPlatform()
+        // Inspect Minecraft bytecode without booting FML's game-test environment.
+        classpath += sourceSets.main.get().compileClasspath
     }
 
     register<Copy>("buildAndCollect") {

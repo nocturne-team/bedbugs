@@ -24,6 +24,12 @@ stonecutter parameters {
     dependencies["fapi"] = properties.getOrNull<String>("deps.fabric_api") ?: "0"
 
     replacements {
+        // Scope to Entity accesses: NeoForge events still use getLevel() on newer versions.
+        string(current.parsed < "1.20") {
+            replace("self.level()", "self.getLevel()")
+            replace("player.level()", "player.getLevel()")
+        }
+
         string(current.parsed >= "1.21.11") {
             replace("ResourceLocation", "Identifier")
         }

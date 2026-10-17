@@ -32,14 +32,47 @@ jobs:
     strategy:
       matrix:
         include:
+          - file: bedbugs-*+1.19.4-fabric.jar
+            game: '1.19.4'
+            loaders: '["fabric"]'
           - file: bedbugs-*+1.20.1-fabric.jar
             game: '1.20.1'
             loaders: '["fabric"]'
+          - file: bedbugs-*+1.20.4-fabric.jar
+            game: '1.20.4'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+1.20.4-neoforge.jar
+            game: '1.20.4'
+            loaders: '["neoforge"]'
+          - file: bedbugs-*+1.20.6-fabric.jar
+            game: '1.20.6'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+1.20.6-neoforge.jar
+            game: '1.20.6'
+            loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.1-fabric.jar
             game: '1.21.1'
             loaders: '["fabric"]'
           - file: bedbugs-*+1.21.1-neoforge.jar
             game: '1.21.1'
+            loaders: '["neoforge"]'
+          - file: bedbugs-*+1.21.4-fabric.jar
+            game: '1.21.4'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+1.21.4-neoforge.jar
+            game: '1.21.4'
+            loaders: '["neoforge"]'
+          - file: bedbugs-*+1.21.5-fabric.jar
+            game: '1.21.5'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+1.21.5-neoforge.jar
+            game: '1.21.5'
+            loaders: '["neoforge"]'
+          - file: bedbugs-*+1.21.8-fabric.jar
+            game: '1.21.8'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+1.21.8-neoforge.jar
+            game: '1.21.8'
             loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.11-fabric.jar
             game: '1.21.11'

@@ -7,6 +7,13 @@ mod.version = "0.3.0"
 deps.fabric_loader = "0.19.5"
 loomx.loom_version = "1.18-SNAPSHOT"
 
+["1.19.4"]
+mod.mc_releases = ["1.19.4"]
+
+[fabric."1.19.4"]
+mod.mc_compat = "1.19.4"
+deps.fabric_api = "0.87.2+1.19.4"
+
 ["1.20.1"]
 mod.mc_releases = ["1.20.1"]
 
@@ -14,6 +21,28 @@ mod.mc_releases = ["1.20.1"]
 mod.mc_compat = ">=1.20 <=1.20.1"
 deps.fabric_api = "0.92.12+1.20.1"
 
+
+["1.20.4"]
+mod.mc_releases = ["1.20.4"]
+
+[fabric."1.20.4"]
+mod.mc_compat = "1.20.4"
+deps.fabric_api = "0.97.3+1.20.4"
+
+[neoforge."1.20.4"]
+mod.mc_compat = "[1.20.4]"
+deps.neo_loader = "20.4.253"
+
+["1.20.6"]
+mod.mc_releases = ["1.20.6"]
+
+[fabric."1.20.6"]
+mod.mc_compat = "1.20.6"
+deps.fabric_api = "0.100.8+1.20.6"
+
+[neoforge."1.20.6"]
+mod.mc_compat = "[1.20.6]"
+deps.neo_loader = "20.6.144"
 
 ["1.21.1"]
 # List of releases to be marked compatible on Modrinth/Curseforge
@@ -30,6 +59,39 @@ deps.fabric_api = "0.116.17+1.21.1"
 mod.mc_compat = "[1.21, 1.21.1]"
 deps.neo_loader = "21.1.251"
 
+
+["1.21.4"]
+mod.mc_releases = ["1.21.4"]
+
+[fabric."1.21.4"]
+mod.mc_compat = "1.21.4"
+deps.fabric_api = "0.119.4+1.21.4"
+
+[neoforge."1.21.4"]
+mod.mc_compat = "[1.21.4]"
+deps.neo_loader = "21.4.161"
+
+["1.21.5"]
+mod.mc_releases = ["1.21.5"]
+
+[fabric."1.21.5"]
+mod.mc_compat = "1.21.5"
+deps.fabric_api = "0.128.2+1.21.5"
+
+[neoforge."1.21.5"]
+mod.mc_compat = "[1.21.5]"
+deps.neo_loader = "21.5.101"
+
+["1.21.8"]
+mod.mc_releases = ["1.21.8"]
+
+[fabric."1.21.8"]
+mod.mc_compat = "1.21.8"
+deps.fabric_api = "0.136.1+1.21.8"
+
+[neoforge."1.21.8"]
+mod.mc_compat = "[1.21.8]"
+deps.neo_loader = "21.8.57"
 
 ["1.21.11"]
 mod.mc_releases = ["1.21.11"]

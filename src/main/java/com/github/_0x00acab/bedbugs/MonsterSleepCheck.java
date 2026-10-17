@@ -11,6 +11,8 @@ import java.util.List;
 
 //? if >=1.21.11
 import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
+//? if >=1.21.2 && <1.21.11
+/*import net.minecraft.world.entity.monster.ZombifiedPiglin;*/
 
 public final class MonsterSleepCheck {
     private MonsterSleepCheck() {
@@ -23,7 +25,10 @@ public final class MonsterSleepCheck {
             center.x() - 8.0, center.y() - 5.0, center.z() - 8.0,
             center.x() + 8.0, center.y() + 5.0, center.z() + 8.0
         );
-        //? if >=1.21.11 {
+        // Since 1.21.2 the vanilla predicate requires a ServerLevel. On a remote client
+        // its only special case (ZombifiedPiglin anger) cannot be evaluated reliably.
+        // Keep the existing conservative client behavior: omit zombified piglins.
+        //? if >=1.21.2 {
         return level.getEntitiesOfClass(Monster.class, box, monster -> !(monster instanceof ZombifiedPiglin));
         //?} else
         /*return level.getEntitiesOfClass(Monster.class, box, monster -> monster.isPreventingPlayerRest(player));*/
