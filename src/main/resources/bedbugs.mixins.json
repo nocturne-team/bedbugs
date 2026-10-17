@@ -1,10 +1,8 @@
 {
   "required": true,
-  "package": "com.example.mixin",
+  "package": "com.github._0x00acab.bedbugs.mixin",
   "compatibilityLevel": "${java}",
-  "mixins": [
-    "ExampleMixin"
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

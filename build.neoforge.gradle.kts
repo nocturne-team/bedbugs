@@ -35,7 +35,7 @@ neoForge {
     version = property("deps.neo_loader") as String
 
     mods {
-        register("template") {
+        register("bedbugs") {
             sourceSet(sourceSets.main.get())
         }
     }

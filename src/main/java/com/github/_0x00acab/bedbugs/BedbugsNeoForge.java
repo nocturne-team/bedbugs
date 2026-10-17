@@ -5,15 +5,12 @@ package com.github._0x00acab.bedbugs;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 
-import static com.github._0x00acab.bedbugs.TemplateModCommon.*;
+import static com.github._0x00acab.bedbugs.BedbugsMod.*;
 
-@Mod("template")
-public class TemplateModNeoForge {
-    public TemplateModNeoForge(IEventBus modEventBus, ModContainer modContainer) {
-        LOGGER.info("Hello NeoForge world!");
-
-        //? if !release
-        LOGGER.warn("I'm still a template!");
+@Mod("bedbugs")
+public class BedbugsNeoForge {
+    public BedbugsNeoForge(IEventBus modEventBus, ModContainer modContainer) {
+        LOGGER.info("Bedbugs loaded");
     }
 }
 *///?}
