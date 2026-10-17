@@ -1,36 +1,29 @@
 {
-  "schemaVersion": 1,
-  "id": "${id}",
-  "version": "${version}",
-  "name": "${name}",
-  "description": "Highlight the monsters keeping you out of bed, right through walls.",
-  "authors": [
-    "0x00ACAB"
-  ],
-  "contact": {
-    "homepage": "https://modrinth.com/mod/bedbugs",
-    "sources": "https://github.com/0x00ACAB/bedbugs"
-  },
-  "license": "CC0-1.0",
-  "icon": "assets/bedbugs/icon.png",
-  "environment": "client",
-  "entrypoints": {
-    "main": [
-      "com.github._0x00acab.bedbugs.BedbugsFabric"
-    ]
-  },
-  "mixins": [
-    "bedbugs.mixins.json",
-    "bedbugs-fabric.mixins.json"
-  ],
-  "modmenu": {
-    "links": {
-      "modmenu.kofi": "https://ko-fi.com/0x00acab"
-    }
-  },
-  "accessWidener": "bedbugs.ct",
-  "depends": {
-    "fabricloader": ">=${loader}",
-    "minecraft": "${minecraft}"
-  }
+	"schemaVersion": 1,
+	"id": "${id}",
+	"version": "${version}",
+	"name": "${name}",
+	"description": "Highlight the monsters keeping you out of bed, right through walls.",
+	"authors": ["0x00ACAB"],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/bedbugs",
+		"sources": "https://github.com/0x00ACAB/bedbugs"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/bedbugs/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": ["com.github._0x00acab.bedbugs.BedbugsFabric"]
+	},
+	"mixins": ["bedbugs.mixins.json", "bedbugs-fabric.mixins.json"],
+	"modmenu": {
+		"links": {
+			"modmenu.kofi": "https://ko-fi.com/chloe__"
+		}
+	},
+	"accessWidener": "bedbugs.ct",
+	"depends": {
+		"fabricloader": ">=${loader}",
+		"minecraft": "${minecraft}"
+	}
 }
