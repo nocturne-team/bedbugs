@@ -1,5 +1,7 @@
 package com.github._0x00acab.bedbugs;
 
+import java.nio.file.Path;
+
 // Similar to this you can implement loader-specific functionality
 // in a way that works on either mod loader.
 public sealed interface ModLoaderAccess {
@@ -11,6 +13,8 @@ public sealed interface ModLoaderAccess {
     boolean isServer();
 
     boolean isModLoaded(String id);
+
+    Path getConfigDir();
 
     //? if fabric {
     final class FabricLoaderAccess implements ModLoaderAccess {
@@ -29,6 +33,11 @@ public sealed interface ModLoaderAccess {
         @Override
         public boolean isModLoaded(String id) {
             return loader.isModLoaded(id);
+        }
+
+        @Override
+        public Path getConfigDir() {
+            return loader.getConfigDir();
         }
     }
     //?} elif neoforge {
@@ -53,6 +62,11 @@ public sealed interface ModLoaderAccess {
         @Override
         public boolean isModLoaded(String id) {
             return mods.getModFileById(id) != null;
+        }
+
+        @Override
+        public Path getConfigDir() {
+            return net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
         }
     }
     *///?}

@@ -2,7 +2,7 @@
 mod.id = "bedbugs"
 mod.name = "Bedbugs"
 mod.group = "com.github._0x00acab.bedbugs"
-mod.version = "0.2.0"
+mod.version = "0.3.0"
 
 deps.fabric_loader = "0.19.5"
 loomx.loom_version = "1.18-SNAPSHOT"
@@ -70,4 +70,3 @@ deps.fabric_api = "0.161.0+26.3"
 [neoforge."26.3"]
 mod.mc_compat = "[26.3, 26.4)"
 deps.neo_loader = "26.3.0.13-beta"
-

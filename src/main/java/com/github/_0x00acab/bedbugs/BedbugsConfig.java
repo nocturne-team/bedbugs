@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public final class BedbugsConfig {
@@ -62,6 +61,10 @@ public final class BedbugsConfig {
     }
 
     private static Path configPath() {
-        return Paths.get("config", FILE_NAME);
+        return configPath(ModLoaderAccess.INSTANCE.getConfigDir());
+    }
+
+    static Path configPath(Path configDirectory) {
+        return configDirectory.resolve(FILE_NAME);
     }
 }

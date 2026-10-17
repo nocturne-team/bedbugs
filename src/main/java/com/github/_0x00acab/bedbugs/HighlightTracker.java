@@ -17,9 +17,9 @@ public final class HighlightTracker {
     }
 
     public void ensureLevel(Object level) {
-        if (this.level != level) {
+        if (level == null || this.level != level) {
+            clear();
             this.level = level;
-            expiryByEntityId.clear();
         }
     }
 

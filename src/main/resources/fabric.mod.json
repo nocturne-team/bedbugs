@@ -16,9 +16,11 @@
 		"main": ["com.github._0x00acab.bedbugs.BedbugsFabric"]
 	},
 	"mixins": ["bedbugs.mixins.json", "bedbugs-fabric.mixins.json"],
-	"modmenu": {
-		"links": {
-			"modmenu.kofi": "https://ko-fi.com/chloe__"
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.kofi": "https://ko-fi.com/chloe__"
+			}
 		}
 	},
 	"accessWidener": "bedbugs.ct",
