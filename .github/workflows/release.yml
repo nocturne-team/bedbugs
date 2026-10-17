@@ -19,7 +19,7 @@ jobs:
           distribution: temurin
           java-version: '25'
       - name: Build all jars
-        run: ./gradlew buildAllJars --offline
+        run: ./gradlew buildAllJars
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
