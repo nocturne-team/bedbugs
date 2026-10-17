@@ -33,3 +33,19 @@ stonecutter parameters {
         }
     }
 }
+
+tasks.register<Copy>("buildAllJars") {
+    group = "build"
+    description = "Builds every version/loader target and collects the jars into build/dist/ as {version}+{minecraft}-{loader}.jar"
+
+    subprojects.forEach { sub ->
+        val subVersion = sub.version.toString()
+        val loaderName = sub.name.substringAfter('-')
+        dependsOn("${sub.path}:jar")
+        from(sub.tasks.named<Jar>("jar").flatMap { it.archiveFile }) {
+            rename { "$subVersion-$loaderName.jar" }
+        }
+    }
+
+    into(layout.buildDirectory.dir("dist"))
+}

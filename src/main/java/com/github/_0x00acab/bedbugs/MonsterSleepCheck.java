@@ -9,7 +9,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-//? if >=26.2
+//? if >=1.21.11
 import net.minecraft.world.entity.NeutralMob;
 
 public final class MonsterSleepCheck {
@@ -23,7 +23,7 @@ public final class MonsterSleepCheck {
             center.x() - 8.0, center.y() - 5.0, center.z() - 8.0,
             center.x() + 8.0, center.y() + 5.0, center.z() + 8.0
         );
-        //? if >=26.2 {
+        //? if >=1.21.11 {
         return level.getEntitiesOfClass(Monster.class, box,
             monster -> !(monster instanceof NeutralMob neutralMob) || neutralMob.isAngry());
         //?} else
