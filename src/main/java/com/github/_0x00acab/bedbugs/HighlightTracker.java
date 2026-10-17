@@ -10,9 +10,22 @@ public final class HighlightTracker {
 
     private final Map<Integer, Long> expiryByEntityId = new HashMap<>();
     private final LongSupplier clock;
+    private Object level;
 
     private HighlightTracker() {
-        this(System::currentTimeMillis);
+        this(() -> System.nanoTime() / 1_000_000L);
+    }
+
+    public void ensureLevel(Object level) {
+        if (this.level != level) {
+            this.level = level;
+            expiryByEntityId.clear();
+        }
+    }
+
+    public void clear() {
+        expiryByEntityId.clear();
+        level = null;
     }
 
     HighlightTracker(LongSupplier clock) {

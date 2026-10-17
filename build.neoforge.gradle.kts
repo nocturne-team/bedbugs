@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
 }
 
 neoForge {
@@ -95,6 +95,10 @@ tasks {
         val name = project.property("mod.id")
         inputs.property("mod_id", name)
         from("../../LICENSE") { rename { "$it-$name" } }
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     register<Copy>("buildAndCollect") {

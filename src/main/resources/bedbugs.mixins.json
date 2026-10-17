@@ -3,8 +3,10 @@
   "package": "com.github._0x00acab.bedbugs.mixin",
   "compatibilityLevel": "${java}",
   "mixins": [
-    "MinecraftGlowMixin",
     "EntityTeamColorMixin"
+  ],
+  "client": [
+    "MinecraftGlowMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -16,6 +16,9 @@ public class EntityTeamColorMixin {
     @Inject(method = "getTeamColor", at = @At("HEAD"), cancellable = true)
     private void bedbugs$getTeamColor(CallbackInfoReturnable<Integer> cir) {
         Entity self = (Entity) (Object) this;
+        if (!self.level().isClientSide()) {
+            return;
+        }
         if (HighlightTracker.INSTANCE.isHighlighted(self.getId())) {
             cir.setReturnValue(BEDBUGS_HIGHLIGHT_COLOR);
         }

@@ -26,6 +26,7 @@ public final class BedRightClickHandler {
         if (player.isCreative() || player.isSpectator()) {
             return;
         }
+        HighlightTracker.INSTANCE.ensureLevel(level);
         BlockState state = level.getBlockState(pos);
         if (!isBed(state)) {
             return;
