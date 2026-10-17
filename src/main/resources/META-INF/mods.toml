@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="CC0-1.0"
+
+[[mods]]
+modId="${id}"
+displayName="${name}"
+version="${version}"
+authors="0x00ACAB"
+description="Highlight the monsters keeping you out of bed, right through walls."
+logoFile="assets/bedbugs/icon.png"
+# Client-only networking compatibility is registered through ExtensionPoint.DISPLAYTEST.
+
+[[dependencies.${id}]]
+modId="forge"
+mandatory=true
+versionRange="[36.2.42,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${id}]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraft}"
+ordering="NONE"
+side="BOTH"

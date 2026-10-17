@@ -45,7 +45,7 @@ class HighlightTrackerTest {
         tracker.ensureLevel(null);
 
         assertEquals(0, tracker.trackedCount());
-        var levelField = HighlightTracker.class.getDeclaredField("level");
+        java.lang.reflect.Field levelField = HighlightTracker.class.getDeclaredField("level");
         levelField.setAccessible(true);
         assertNull(levelField.get(tracker));
 

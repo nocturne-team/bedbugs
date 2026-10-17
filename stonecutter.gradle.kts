@@ -15,7 +15,7 @@ stonecutter parameters {
 
     // Adds constants to Stonecutter comments (i.e. for `//? if fabric {...`)
     constants {
-        match(loader, "fabric", "neoforge")
+        match(loader, "fabric", "neoforge", "forge")
     }
 
     swaps["mod_version"] = "\"${properties.get<String>("mod.version")}\";"
@@ -25,7 +25,13 @@ stonecutter parameters {
 
     replacements {
         // Scope to Entity accesses: NeoForge events still use getLevel() on newer versions.
-        string(current.parsed < "1.20") {
+        string(current.parsed < "1.17") {
+            replace("sealed interface", "interface")
+            replace("self.level()", "self.level")
+            replace("player.level()", "player.level")
+        }
+
+        string(current.parsed >= "1.17" && current.parsed < "1.20") {
             replace("self.level()", "self.getLevel()")
             replace("player.level()", "player.getLevel()")
         }
@@ -44,8 +50,8 @@ tasks.register<Copy>("buildAllJars") {
     group = "build"
     description = "Builds every version/loader target and collects the jars into build/dist/ as bedbugs-{version}+{minecraft}-{loader}.jar"
 
-    // Obfuscated versions (e.g. 1.21.1, 1.21.11) need their `jar` output remapped from
-    // intermediary to real names via Loom's `remapJar`; the plain `jar` task there is a dev-only
+    // Obfuscated Fabric versions need Loom's remapJar; legacy Forge uses Unimined's
+    // remapJar to reobfuscate Mojang names to production SRG names. Their plain jar is a dev-only
     // artifact. Versions built against Mojang mappings directly (26.x) have no `remapJar` task
     // at all, so `jar` is already the real output. Pick whichever actually exists per subproject.
     subprojects.forEach { sub ->

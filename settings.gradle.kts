@@ -4,8 +4,18 @@ pluginManagement {
         gradlePluginPortal()
         maven("https://maven.fabricmc.net/") { name = "FabricMC" }
         maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
+        maven("https://maven.wagyourtail.xyz/releases") { name = "WagYourTail" }
+        maven("https://maven.wagyourtail.xyz/snapshots") { name = "WagYourTail Snapshots" }
         maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
         maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "xyz.wagyourtail.unimined") {
+                // Pin the Gradle 9 / current TinyRemapper compatibility fixes.
+                useModule("xyz.wagyourtail.unimined:unimined:1.4.2-20260917.005300-29")
+            }
+        }
     }
 }
 
@@ -38,6 +48,7 @@ stonecutter {
         }
 
         // See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
+        match("1.16.5", "forge")
         match("1.19.4", "fabric")
         match("1.20.1", "fabric")
         match("1.20.4", "fabric", "neoforge")

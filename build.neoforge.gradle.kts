@@ -82,6 +82,9 @@ tasks {
         }
 
         filesMatching("META-INF/neoforge.mods.toml") { expand(props) }
+        // Do not copy the separate legacy Forge metadata (the NeoForge file may
+        // itself be renamed to mods.toml below for FML 2).
+        filesMatching("META-INF/mods.toml") { exclude() }
         // FML 2 (Minecraft 1.20.4) still discovers META-INF/mods.toml.
         val metadataPath = if (sc.current.parsed < "1.20.5") "META-INF/mods.toml" else "META-INF/neoforge.mods.toml"
         inputs.property("metadataPath", metadataPath)
@@ -90,7 +93,7 @@ tasks {
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 
-        exclude("fabric.mod.json", "*.ct", "*.classtweaker")
+        exclude("fabric.mod.json", "*.ct", "*.classtweaker", "bedbugs-forge.mixins.json")
     }
 
     named("createMinecraftArtifacts") {

@@ -32,6 +32,9 @@ jobs:
     strategy:
       matrix:
         include:
+          - file: bedbugs-*+1.16.5-forge.jar
+            game: '1.16.5'
+            loaders: '["forge"]'
           - file: bedbugs-*+1.19.4-fabric.jar
             game: '1.19.4'
             loaders: '["fabric"]'

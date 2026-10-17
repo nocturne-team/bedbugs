@@ -2,10 +2,17 @@
 mod.id = "bedbugs"
 mod.name = "Bedbugs"
 mod.group = "com.github._0x00acab.bedbugs"
-mod.version = "0.3.0"
+mod.version = "0.4.0"
 
 deps.fabric_loader = "0.19.5"
 loomx.loom_version = "1.18-SNAPSHOT"
+
+["1.16.5"]
+mod.mc_releases = ["1.16.5"]
+
+[forge."1.16.5"]
+mod.mc_compat = "[1.16.5]"
+deps.forge_loader = "36.2.42"
 
 ["1.19.4"]
 mod.mc_releases = ["1.19.4"]

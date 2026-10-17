@@ -9,10 +9,12 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,12 +25,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class MixinTargetTest {
     @Test
     void metadataUsesTheLoadersDiscoveryPath() {
-        var loader = getClass().getClassLoader();
+        ClassLoader loader = getClass().getClassLoader();
         //? if fabric {
         assertNotNull(loader.getResource("fabric.mod.json"));
         assertNull(loader.getResource("META-INF/mods.toml"));
         assertNull(loader.getResource("META-INF/neoforge.mods.toml"));
-        //?} else {
+        //?} elif forge {
+        /*assertNotNull(loader.getResource("META-INF/mods.toml"));
+        assertNull(loader.getResource("META-INF/neoforge.mods.toml"));
+        assertNull(loader.getResource("fabric.mod.json"));
+        *///?} else {
         /*String metadata = BedbugsMod.MINECRAFT.equals("1.20.4") ? "mods.toml" : "neoforge.mods.toml";
         String otherMetadata = BedbugsMod.MINECRAFT.equals("1.20.4") ? "neoforge.mods.toml" : "mods.toml";
         assertNotNull(loader.getResource("META-INF/" + metadata));
@@ -99,7 +105,7 @@ class MixinTargetTest {
         }, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
         for (Injection injection : injections) {
             List<String> matches = methods.stream().filter(method -> injection.selector.contains("(")
-                ? method.equals(injection.selector) : method.startsWith(injection.selector + "(")).toList();
+                ? method.equals(injection.selector) : method.startsWith(injection.selector + "(")).collect(Collectors.toList());
             assertEquals(1, matches.size(), name + ": " + injection.selector);
             String targetDescriptor = matches.get(0).substring(matches.get(0).indexOf('('));
             Type[] targetArgs = Type.getArgumentTypes(targetDescriptor);
@@ -114,11 +120,19 @@ class MixinTargetTest {
     }
 
     private ClassReader readClass(String name) throws IOException {
-        try (var stream = getClass().getClassLoader().getResourceAsStream(name + ".class")) {
+        try (InputStream stream = getClass().getClassLoader().getResourceAsStream(name + ".class")) {
             assertNotNull(stream, name);
             return new ClassReader(stream);
         }
     }
 
-    private record Injection(String selector, String callbackDescriptor) {}
+    private static final class Injection {
+        private final String selector;
+        private final String callbackDescriptor;
+
+        private Injection(String selector, String callbackDescriptor) {
+            this.selector = selector;
+            this.callbackDescriptor = callbackDescriptor;
+        }
+    }
 }

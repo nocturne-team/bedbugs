@@ -6,8 +6,13 @@ import java.nio.file.Path;
 // in a way that works on either mod loader.
 public sealed interface ModLoaderAccess {
     ModLoaderAccess INSTANCE =
-        /*? if fabric{*/new FabricLoaderAccess();
-        /*?} elif neoforge *///new NeoForgeLoaderAccess();
+        //? if fabric {
+        new FabricLoaderAccess();
+        //?} elif neoforge {
+        /*new NeoForgeLoaderAccess();
+        *///?} else {
+        /*new ForgeLoaderAccess();
+        *///?}
 
     boolean isClient();
     boolean isServer();
@@ -67,6 +72,28 @@ public sealed interface ModLoaderAccess {
         @Override
         public Path getConfigDir() {
             return net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get();
+        }
+    }
+    *///?} elif forge {
+    /*final class ForgeLoaderAccess implements ModLoaderAccess {
+        @Override
+        public boolean isClient() {
+            return net.minecraftforge.fml.loading.FMLEnvironment.dist.isClient();
+        }
+
+        @Override
+        public boolean isServer() {
+            return net.minecraftforge.fml.loading.FMLEnvironment.dist.isDedicatedServer();
+        }
+
+        @Override
+        public boolean isModLoaded(String id) {
+            return net.minecraftforge.fml.ModList.get().isLoaded(id);
+        }
+
+        @Override
+        public Path getConfigDir() {
+            return net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
         }
     }
     *///?}
