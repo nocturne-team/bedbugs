@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Build all jars
+        run: ./gradlew buildAllJars --offline
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jars
+          path: build/dist/*.jar
+
+  publish-modrinth:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - file: bedbugs-0.1.0+1.20.1-fabric.jar
+            game: '1.20.1'
+            loaders: '["fabric"]'
+          - file: bedbugs-0.1.0+1.21.1-fabric.jar
+            game: '1.21.1'
+            loaders: '["fabric"]'
+          - file: bedbugs-0.1.0+1.21.1-neoforge.jar
+            game: '1.21.1'
+            loaders: '["neoforge"]'
+          - file: bedbugs-0.1.0+1.21.11-fabric.jar
+            game: '1.21.11'
+            loaders: '["fabric"]'
+          - file: bedbugs-0.1.0+1.21.11-neoforge.jar
+            game: '1.21.11'
+            loaders: '["neoforge"]'
+          - file: bedbugs-0.1.0+26.2-fabric.jar
+            game: '26.2'
+            loaders: '["fabric"]'
+          - file: bedbugs-0.1.0+26.2-neoforge.jar
+            game: '26.2'
+            loaders: '["neoforge"]'
+          - file: bedbugs-0.1.0+26.3-fabric.jar
+            game: '26.3'
+            loaders: '["fabric"]'
+          - file: bedbugs-0.1.0+26.3-neoforge.jar
+            game: '26.3'
+            loaders: '["neoforge"]'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: jars
+          path: dist
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: ${{ secrets.MODRINTH_PROJECT_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: dist/${{ matrix.file }}
+          game-versions: ${{ matrix.game }}
+          loaders: ${{ matrix.loaders }}
+          version-type: release
