@@ -43,7 +43,7 @@ tasks.register<Copy>("buildAllJars") {
         val loaderName = sub.name.substringAfter('-')
         dependsOn("${sub.path}:jar")
         from(sub.tasks.named<Jar>("jar").flatMap { it.archiveFile }) {
-            rename { "$subVersion-$loaderName.jar" }
+            rename { "bedbugs-$subVersion-$loaderName.jar" }
         }
     }
 
