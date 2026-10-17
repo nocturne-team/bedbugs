@@ -10,7 +10,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 //? if >=1.21.11
-import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 
 public final class MonsterSleepCheck {
     private MonsterSleepCheck() {
@@ -24,8 +24,7 @@ public final class MonsterSleepCheck {
             center.x() + 8.0, center.y() + 5.0, center.z() + 8.0
         );
         //? if >=1.21.11 {
-        return level.getEntitiesOfClass(Monster.class, box,
-            monster -> !(monster instanceof NeutralMob neutralMob) || neutralMob.isAngry());
+        return level.getEntitiesOfClass(Monster.class, box, monster -> !(monster instanceof ZombifiedPiglin));
         //?} else
         /*return level.getEntitiesOfClass(Monster.class, box, monster -> monster.isPreventingPlayerRest(player));*/
     }

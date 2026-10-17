@@ -36,13 +36,17 @@ stonecutter parameters {
 
 tasks.register<Copy>("buildAllJars") {
     group = "build"
-    description = "Builds every version/loader target and collects the jars into build/dist/ as {version}+{minecraft}-{loader}.jar"
+    description = "Builds every version/loader target and collects the jars into build/dist/ as bedbugs-{version}+{minecraft}-{loader}.jar"
 
+    // Obfuscated versions (e.g. 1.21.1, 1.21.11) need their `jar` output remapped from
+    // intermediary to real names via Loom's `remapJar`; the plain `jar` task there is a dev-only
+    // artifact. Versions built against Mojang mappings directly (26.x) have no `remapJar` task
+    // at all, so `jar` is already the real output. Pick whichever actually exists per subproject.
     subprojects.forEach { sub ->
         val subVersion = sub.version.toString()
         val loaderName = sub.name.substringAfter('-')
-        dependsOn("${sub.path}:jar")
-        from(sub.tasks.named<Jar>("jar").flatMap { it.archiveFile }) {
+        val jarTaskName = if (sub.tasks.findByName("remapJar") != null) "remapJar" else "jar"
+        from(sub.tasks.named(jarTaskName)) {
             rename { "bedbugs-$subVersion-$loaderName.jar" }
         }
     }
