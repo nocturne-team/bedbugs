@@ -2,7 +2,10 @@
   "required": true,
   "package": "com.github._0x00acab.bedbugs.mixin",
   "compatibilityLevel": "${java}",
-  "mixins": [],
+  "mixins": [
+    "MinecraftGlowMixin",
+    "EntityTeamColorMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
