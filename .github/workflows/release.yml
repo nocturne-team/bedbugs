@@ -128,6 +128,21 @@ jobs:
           - file: bedbugs-*+1.21.11-neoforge.jar
             game: '1.21.11'
             loaders: '["neoforge"]'
+          - file: bedbugs-*+26.1-fabric.jar
+            game: '26.1'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+26.1.1-fabric.jar
+            game: '26.1.1'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+26.1.1-neoforge.jar
+            game: '26.1.1'
+            loaders: '["neoforge"]'
+          - file: bedbugs-*+26.1.2-fabric.jar
+            game: '26.1.2'
+            loaders: '["fabric"]'
+          - file: bedbugs-*+26.1.2-neoforge.jar
+            game: '26.1.2'
+            loaders: '["neoforge"]'
           - file: bedbugs-*+26.2-fabric.jar
             game: '26.2'
             loaders: '["fabric"]'
