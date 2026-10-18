@@ -39,7 +39,7 @@ jobs:
             game: '1.19.4'
             loaders: '["fabric"]'
           - file: bedbugs-*+1.20.1-fabric.jar
-            game: '1.20.1'
+            game: '1.20, 1.20.1'
             loaders: '["fabric"]'
           - file: bedbugs-*+1.20.4-fabric.jar
             game: '1.20.4'
@@ -54,10 +54,10 @@ jobs:
             game: '1.20.6'
             loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.1-fabric.jar
-            game: '1.21.1'
+            game: '1.21, 1.21.1'
             loaders: '["fabric"]'
           - file: bedbugs-*+1.21.1-neoforge.jar
-            game: '1.21.1'
+            game: '1.21, 1.21.1'
             loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.4-fabric.jar
             game: '1.21.4'

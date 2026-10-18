@@ -22,7 +22,7 @@ mod.mc_compat = "1.19.4"
 deps.fabric_api = "0.87.2+1.19.4"
 
 ["1.20.1"]
-mod.mc_releases = ["1.20.1"]
+mod.mc_releases = ["1.20", "1.20.1"]
 
 [fabric."1.20.1"]
 mod.mc_compat = ">=1.20 <=1.20.1"
