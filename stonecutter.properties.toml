@@ -199,6 +199,36 @@ deps.fabric_api = "0.141.6+1.21.11"
 mod.mc_compat = "[1.21.11]"
 deps.neo_loader = "21.11.45"
 
+["26.1"]
+# NeoForge never released a build for bare 26.1, only 26.1.1 onward; fabric only.
+mod.mc_releases = ["26.1"]
+
+[fabric."26.1"]
+mod.mc_compat = "26.1"
+deps.fabric_api = "0.145.1+26.1"
+
+["26.1.1"]
+mod.mc_releases = ["26.1.1"]
+
+[fabric."26.1.1"]
+mod.mc_compat = "26.1.1"
+deps.fabric_api = "0.145.4+26.1.1"
+
+[neoforge."26.1.1"]
+mod.mc_compat = "[26.1.1]"
+deps.neo_loader = "26.1.1.15-beta"
+
+["26.1.2"]
+mod.mc_releases = ["26.1.2"]
+
+[fabric."26.1.2"]
+mod.mc_compat = "26.1.2"
+deps.fabric_api = "0.155.3+26.1.2"
+
+[neoforge."26.1.2"]
+mod.mc_compat = "[26.1.2]"
+deps.neo_loader = "26.1.2.122"
+
 
 ["26.2"]
 mod.mc_releases = ["26.2"]
