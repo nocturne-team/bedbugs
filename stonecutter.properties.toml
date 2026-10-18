@@ -29,6 +29,20 @@ mod.mc_compat = ">=1.20 <=1.20.1"
 deps.fabric_api = "0.92.12+1.20.1"
 
 
+["1.20.2"]
+mod.mc_releases = ["1.20.2"]
+
+[fabric."1.20.2"]
+mod.mc_compat = "1.20.2"
+deps.fabric_api = "0.91.6+1.20.2"
+
+["1.20.3"]
+mod.mc_releases = ["1.20.3"]
+
+[fabric."1.20.3"]
+mod.mc_compat = "1.20.3"
+deps.fabric_api = "0.91.1+1.20.3"
+
 ["1.20.4"]
 mod.mc_releases = ["1.20.4"]
 
@@ -39,6 +53,13 @@ deps.fabric_api = "0.97.3+1.20.4"
 [neoforge."1.20.4"]
 mod.mc_compat = "[1.20.4]"
 deps.neo_loader = "20.4.253"
+
+["1.20.5"]
+mod.mc_releases = ["1.20.5"]
+
+[fabric."1.20.5"]
+mod.mc_compat = "1.20.5"
+deps.fabric_api = "0.97.8+1.20.5"
 
 ["1.20.6"]
 mod.mc_releases = ["1.20.6"]
@@ -67,6 +88,28 @@ mod.mc_compat = "[1.21, 1.21.1]"
 deps.neo_loader = "21.1.251"
 
 
+["1.21.2"]
+mod.mc_releases = ["1.21.2"]
+
+[fabric."1.21.2"]
+mod.mc_compat = "1.21.2"
+deps.fabric_api = "0.106.1+1.21.2"
+
+[neoforge."1.21.2"]
+mod.mc_compat = "[1.21.2]"
+deps.neo_loader = "21.2.1-beta"
+
+["1.21.3"]
+mod.mc_releases = ["1.21.3"]
+
+[fabric."1.21.3"]
+mod.mc_compat = "1.21.3"
+deps.fabric_api = "0.114.1+1.21.3"
+
+[neoforge."1.21.3"]
+mod.mc_compat = "[1.21.3]"
+deps.neo_loader = "21.3.100"
+
 ["1.21.4"]
 mod.mc_releases = ["1.21.4"]
 
@@ -89,6 +132,28 @@ deps.fabric_api = "0.128.2+1.21.5"
 mod.mc_compat = "[1.21.5]"
 deps.neo_loader = "21.5.101"
 
+["1.21.6"]
+mod.mc_releases = ["1.21.6"]
+
+[fabric."1.21.6"]
+mod.mc_compat = "1.21.6"
+deps.fabric_api = "0.128.2+1.21.6"
+
+[neoforge."1.21.6"]
+mod.mc_compat = "[1.21.6]"
+deps.neo_loader = "21.6.20-beta"
+
+["1.21.7"]
+mod.mc_releases = ["1.21.7"]
+
+[fabric."1.21.7"]
+mod.mc_compat = "1.21.7"
+deps.fabric_api = "0.129.0+1.21.7"
+
+[neoforge."1.21.7"]
+mod.mc_compat = "[1.21.7]"
+deps.neo_loader = "21.7.25-beta"
+
 ["1.21.8"]
 mod.mc_releases = ["1.21.8"]
 
@@ -99,6 +164,28 @@ deps.fabric_api = "0.136.1+1.21.8"
 [neoforge."1.21.8"]
 mod.mc_compat = "[1.21.8]"
 deps.neo_loader = "21.8.57"
+
+["1.21.9"]
+mod.mc_releases = ["1.21.9"]
+
+[fabric."1.21.9"]
+mod.mc_compat = "1.21.9"
+deps.fabric_api = "0.134.1+1.21.9"
+
+[neoforge."1.21.9"]
+mod.mc_compat = "[1.21.9]"
+deps.neo_loader = "21.9.16-beta"
+
+["1.21.10"]
+mod.mc_releases = ["1.21.10"]
+
+[fabric."1.21.10"]
+mod.mc_compat = "1.21.10"
+deps.fabric_api = "0.138.4+1.21.10"
+
+[neoforge."1.21.10"]
+mod.mc_compat = "[1.21.10]"
+deps.neo_loader = "21.10.64"
 
 ["1.21.11"]
 mod.mc_releases = ["1.21.11"]
