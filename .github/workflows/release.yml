@@ -30,6 +30,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - file: bedbugs-*+1.16.5-forge.jar
@@ -39,7 +40,9 @@ jobs:
             game: '1.19.4'
             loaders: '["fabric"]'
           - file: bedbugs-*+1.20.1-fabric.jar
-            game: '1.20, 1.20.1'
+            game: |
+              1.20
+              1.20.1
             loaders: '["fabric"]'
           - file: bedbugs-*+1.20.2-fabric.jar
             game: '1.20.2'
@@ -63,10 +66,14 @@ jobs:
             game: '1.20.6'
             loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.1-fabric.jar
-            game: '1.21, 1.21.1'
+            game: |
+              1.21
+              1.21.1
             loaders: '["fabric"]'
           - file: bedbugs-*+1.21.1-neoforge.jar
-            game: '1.21, 1.21.1'
+            game: |
+              1.21
+              1.21.1
             loaders: '["neoforge"]'
           - file: bedbugs-*+1.21.2-fabric.jar
             game: '1.21.2'
