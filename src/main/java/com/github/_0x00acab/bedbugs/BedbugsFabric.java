@@ -8,6 +8,7 @@ import static com.github._0x00acab.bedbugs.BedbugsMod.*;
 public class BedbugsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        BedbugsConfig.load();
         LOGGER.info("Bedbugs loaded");
     }
 }

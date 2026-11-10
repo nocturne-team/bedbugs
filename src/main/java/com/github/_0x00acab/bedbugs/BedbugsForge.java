@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraft.world.InteractionHand;
 
 @Mod("bedbugs")
 public final class BedbugsForge {
@@ -18,6 +17,7 @@ public final class BedbugsForge {
         // servers without Bedbugs, and ignore accidental server installations.
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST,
             () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (version, network) -> true));
+        BedbugsConfig.load();
         BedbugsMod.LOGGER.info("Bedbugs loaded");
     }
 
@@ -27,10 +27,7 @@ public final class BedbugsForge {
     public static final class ClientEvents {
         @SubscribeEvent
         public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-            if (event.getHand() != InteractionHand.MAIN_HAND || event.getPlayer().isShiftKeyDown()) {
-                return;
-            }
-            BedRightClickHandler.handle(event.getWorld(), event.getPos(), event.getPlayer());
+            BedRightClickHandler.handle(event.getWorld(), event.getPos(), event.getPlayer(), event.getHand());
         }
     }
 }

@@ -16,10 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FabricUseBlockMixin {
     @Inject(method = "useItemOn", at = @At("HEAD"))
     private void bedbugs$useItemOn(LocalPlayer player, InteractionHand hand, BlockHitResult blockHit, CallbackInfoReturnable<InteractionResult> cir) {
-        if (hand != InteractionHand.MAIN_HAND || player.isShiftKeyDown()) {
-            return;
-        }
-        BedRightClickHandler.handle(player.level(), blockHit.getBlockPos(), player);
+        BedRightClickHandler.handle(player.level(), blockHit.getBlockPos(), player, hand);
     }
 }
 //?}

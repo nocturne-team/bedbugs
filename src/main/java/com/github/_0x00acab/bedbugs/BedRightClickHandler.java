@@ -1,6 +1,7 @@
 package com.github._0x00acab.bedbugs;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -19,8 +20,12 @@ public final class BedRightClickHandler {
     private BedRightClickHandler() {
     }
 
-    public static void handle(Level level, BlockPos pos, Player player) {
+    public static void handle(Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
+            return;
+        }
+        // Loaders report the click once per hand; sneaking skips the bed entirely.
+        if (hand != InteractionHand.MAIN_HAND || player.isShiftKeyDown()) {
             return;
         }
         if (player.isCreative() || player.isSpectator()) {

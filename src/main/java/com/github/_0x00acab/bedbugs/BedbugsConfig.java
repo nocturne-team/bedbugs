@@ -18,50 +18,48 @@ public final class BedbugsConfig {
     }
 
     public static int getGlowColor() {
-        ensureLoaded();
+        load();
         return glowColor;
     }
 
-    public static void setGlowColor(int color) {
-        glowColor = color;
-        save();
+    public static void load() {
+        if (!loaded) {
+            loaded = true;
+            glowColor = loadOrCreate(configPath(ModLoaderAccess.INSTANCE.getConfigDir()));
+        }
     }
 
-    private static void ensureLoaded() {
-        if (loaded) {
-            return;
-        }
-        loaded = true;
-        Path path = configPath();
-        if (Files.exists(path)) {
-            try (InputStream in = Files.newInputStream(path)) {
-                Properties props = new Properties();
-                props.load(in);
-                String value = props.getProperty(KEY_COLOR);
-                if (value != null) {
-                    glowColor = Integer.parseInt(value.trim().replaceFirst("^#", ""), 16);
-                }
-            } catch (Exception ignored) {
-                glowColor = DEFAULT_GLOW_COLOR;
+    // Writes the defaults on first run so the option is discoverable.
+    static int loadOrCreate(Path path) {
+        if (!Files.exists(path)) {
+            try {
+                save(path, DEFAULT_GLOW_COLOR);
+            } catch (IOException e) {
+                BedbugsMod.LOGGER.warn("Could not write " + path, e);
             }
+            return DEFAULT_GLOW_COLOR;
         }
-    }
-
-    private static void save() {
-        try {
-            Path path = configPath();
-            Files.createDirectories(path.getParent());
+        try (InputStream in = Files.newInputStream(path)) {
             Properties props = new Properties();
-            props.setProperty(KEY_COLOR, String.format("%06X", glowColor & 0xFFFFFF));
-            try (OutputStream out = Files.newOutputStream(path)) {
-                props.store(out, "Bedbugs config");
+            props.load(in);
+            String value = props.getProperty(KEY_COLOR);
+            if (value == null) {
+                return DEFAULT_GLOW_COLOR;
             }
-        } catch (IOException ignored) {
+            return Integer.parseInt(value.trim().replaceFirst("^#", ""), 16) & 0xFFFFFF;
+        } catch (IOException | NumberFormatException e) {
+            BedbugsMod.LOGGER.warn("Ignoring invalid " + path + ", using the default glow color", e);
+            return DEFAULT_GLOW_COLOR;
         }
     }
 
-    private static Path configPath() {
-        return configPath(ModLoaderAccess.INSTANCE.getConfigDir());
+    static void save(Path path, int color) throws IOException {
+        Files.createDirectories(path.getParent());
+        Properties props = new Properties();
+        props.setProperty(KEY_COLOR, String.format("%06X", color & 0xFFFFFF));
+        try (OutputStream out = Files.newOutputStream(path)) {
+            props.store(out, "Bedbugs config. glowColor is a hex RGB value, e.g. 8BC34A");
+        }
     }
 
     static Path configPath(Path configDirectory) {
