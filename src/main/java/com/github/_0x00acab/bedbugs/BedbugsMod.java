@@ -9,10 +9,10 @@ import org.apache.logging.log4j.LogManager;
 *///?}
 
 public class BedbugsMod {
-    //? if >=1.17 {
-    public static final Logger LOGGER = LoggerFactory.getLogger("bedbugs");
-    //?} else
-    /*public static final Logger LOGGER = LogManager.getLogger("bedbugs");*/
-    public static final String VERSION = /*$ mod_version*/ "0.1.0";
-    public static final String MINECRAFT = /*$ minecraft*/ "26.3";
+	//? if >=1.17 {
+	public static final Logger LOGGER = LoggerFactory.getLogger("bedbugs");
+	//?} else
+	/*public static final Logger LOGGER = LogManager.getLogger("bedbugs");*/
+	public static final String VERSION = /*$ mod_version*/ "0.1.0";
+	public static final String MINECRAFT = /*$ minecraft*/ "26.3";
 }

@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public class EntityTeamColorMixin {
-    @Inject(method = "getTeamColor", at = @At("HEAD"), cancellable = true)
-    private void bedbugs$getTeamColor(CallbackInfoReturnable<Integer> cir) {
-        Entity self = (Entity) (Object) this;
-        if (!self.level().isClientSide()) {
-            return;
-        }
-        if (HighlightTracker.INSTANCE.isHighlighted(self.getId())) {
-            cir.setReturnValue(com.github._0x00acab.bedbugs.BedbugsConfig.getGlowColor());
-        }
-    }
+	@Inject(method = "getTeamColor", at = @At("HEAD"), cancellable = true)
+	private void bedbugs$getTeamColor(CallbackInfoReturnable<Integer> cir) {
+		Entity self = (Entity) (Object) this;
+		if (!self.level().isClientSide()) {
+			return;
+		}
+		if (HighlightTracker.INSTANCE.isHighlighted(self.getId())) {
+			cir.setReturnValue(com.github._0x00acab.bedbugs.BedbugsConfig.getGlowColor());
+		}
+	}
 }

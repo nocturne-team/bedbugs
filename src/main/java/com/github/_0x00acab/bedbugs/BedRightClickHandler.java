@@ -17,45 +17,45 @@ import net.minecraft.world.level.block.AbstractBedBlock;
 import java.util.List;
 
 public final class BedRightClickHandler {
-    private BedRightClickHandler() {
-    }
+	private BedRightClickHandler() {
+	}
 
-    public static void handle(Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (!level.isClientSide()) {
-            return;
-        }
-        // Loaders report the click once per hand; sneaking skips the bed entirely.
-        if (hand != InteractionHand.MAIN_HAND || player.isShiftKeyDown()) {
-            return;
-        }
-        if (player.isCreative() || player.isSpectator()) {
-            return;
-        }
-        HighlightTracker.INSTANCE.ensureLevel(level);
-        BlockState state = level.getBlockState(pos);
-        if (!isBed(state)) {
-            return;
-        }
-        if (state.getValue(bedPartProperty()) != BedPart.HEAD) {
-            pos = pos.relative(state.getValue(HorizontalDirectionalBlock.FACING));
-        }
-        List<Monster> blocking = MonsterSleepCheck.findBlockingMonsters(level, pos, player);
-        for (Monster monster : blocking) {
-            HighlightTracker.INSTANCE.highlight(monster.getId());
-        }
-    }
+	public static void handle(Level level, BlockPos pos, Player player, InteractionHand hand) {
+		if (!level.isClientSide()) {
+			return;
+		}
+		// Loaders report the click once per hand; sneaking skips the bed entirely.
+		if (hand != InteractionHand.MAIN_HAND || player.isShiftKeyDown()) {
+			return;
+		}
+		if (player.isCreative() || player.isSpectator()) {
+			return;
+		}
+		HighlightTracker.INSTANCE.ensureLevel(level);
+		BlockState state = level.getBlockState(pos);
+		if (!isBed(state)) {
+			return;
+		}
+		if (state.getValue(bedPartProperty()) != BedPart.HEAD) {
+			pos = pos.relative(state.getValue(HorizontalDirectionalBlock.FACING));
+		}
+		List<Monster> blocking = MonsterSleepCheck.findBlockingMonsters(level, pos, player);
+		for (Monster monster : blocking) {
+			HighlightTracker.INSTANCE.highlight(monster.getId());
+		}
+	}
 
-    private static boolean isBed(BlockState state) {
-        //? if >=26.3 {
-        return state.getBlock() instanceof AbstractBedBlock;
-        //?} else
-        /*return state.getBlock() instanceof BedBlock;*/
-    }
+	private static boolean isBed(BlockState state) {
+		//? if >=26.3 {
+		return state.getBlock() instanceof AbstractBedBlock;
+		//?} else
+		/*return state.getBlock() instanceof BedBlock;*/
+	}
 
-    private static EnumProperty<BedPart> bedPartProperty() {
-        //? if >=26.3 {
-        return AbstractBedBlock.PART;
-        //?} else
-        /*return BedBlock.PART;*/
-    }
+	private static EnumProperty<BedPart> bedPartProperty() {
+		//? if >=26.3 {
+		return AbstractBedBlock.PART;
+		//?} else
+		/*return BedBlock.PART;*/
+	}
 }

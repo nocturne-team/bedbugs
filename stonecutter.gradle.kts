@@ -1,58 +1,58 @@
 plugins {
-    id("dev.kikugie.stonecutter")
+	id("dev.kikugie.stonecutter")
 }
 
 stonecutter active "26.3-fabric"
 
 // See https://stonecutter.kikugie.dev/wiki/config/params
 stonecutter parameters {
-    val (version, loader) = current.project.split('-', limit = 2)
+	val (version, loader) = current.project.split('-', limit = 2)
 
-    // Makes version- and loader-specific properties apply from `stonecutter.properties.toml`
-    properties {
-        tags(version, loader)
-    }
+	// Makes version- and loader-specific properties apply from `stonecutter.properties.toml`
+	properties {
+		tags(version, loader)
+	}
 
-    // Adds constants to Stonecutter comments (i.e. for `//? if fabric {...`)
-    constants {
-        match(loader, "fabric", "neoforge", "forge")
-    }
+	// Adds constants to Stonecutter comments (i.e. for `//? if fabric {...`)
+	constants {
+		match(loader, "fabric", "neoforge", "forge")
+	}
 
-    swaps["mod_version"] = "\"${properties.get<String>("mod.version")}\";"
-    swaps["minecraft"] = "\"${node.metadata.version}\";"
+	swaps["mod_version"] = "\"${properties.get<String>("mod.version")}\";"
+	swaps["minecraft"] = "\"${node.metadata.version}\";"
 
-    replacements {
-        // Scope to Entity accesses: NeoForge events still use getLevel() on newer versions.
-        string(current.parsed < "1.17") {
-            replace("sealed interface", "interface")
-            replace("self.level()", "self.level")
-            replace("player.level()", "player.level")
-        }
+	replacements {
+		// Scope to Entity accesses: NeoForge events still use getLevel() on newer versions.
+		string(current.parsed < "1.17") {
+			replace("sealed interface", "interface")
+			replace("self.level()", "self.level")
+			replace("player.level()", "player.level")
+		}
 
-        string(current.parsed >= "1.17" && current.parsed < "1.20") {
-            replace("self.level()", "self.getLevel()")
-            replace("player.level()", "player.getLevel()")
-        }
+		string(current.parsed >= "1.17" && current.parsed < "1.20") {
+			replace("self.level()", "self.getLevel()")
+			replace("player.level()", "player.getLevel()")
+		}
 
-    }
+	}
 }
 
 tasks.register<Copy>("buildAllJars") {
-    group = "build"
-    description = "Builds every version/loader target and collects the jars into build/dist/ as bedbugs-{version}+{minecraft}-{loader}.jar"
+	group = "build"
+	description = "Builds every version/loader target and collects the jars into build/dist/ as bedbugs-{version}+{minecraft}-{loader}.jar"
 
-    // Obfuscated Fabric versions need Loom's remapJar; legacy Forge uses Unimined's
-    // remapJar to reobfuscate Mojang names to production SRG names. Their plain jar is a dev-only
-    // artifact. Versions built against Mojang mappings directly (26.x) have no `remapJar` task
-    // at all, so `jar` is already the real output. Pick whichever actually exists per subproject.
-    subprojects.forEach { sub ->
-        val subVersion = sub.version.toString()
-        val loaderName = sub.name.substringAfter('-')
-        val jarTaskName = if (sub.tasks.findByName("remapJar") != null) "remapJar" else "jar"
-        from(sub.tasks.named(jarTaskName)) {
-            rename { "bedbugs-$subVersion-$loaderName.jar" }
-        }
-    }
+	// Obfuscated Fabric versions need Loom's remapJar; legacy Forge uses Unimined's
+	// remapJar to reobfuscate Mojang names to production SRG names. Their plain jar is a dev-only
+	// artifact. Versions built against Mojang mappings directly (26.x) have no `remapJar` task
+	// at all, so `jar` is already the real output. Pick whichever actually exists per subproject.
+	subprojects.forEach { sub ->
+		val subVersion = sub.version.toString()
+		val loaderName = sub.name.substringAfter('-')
+		val jarTaskName = if (sub.tasks.findByName("remapJar") != null) "remapJar" else "jar"
+		from(sub.tasks.named(jarTaskName)) {
+			rename { "bedbugs-$subVersion-$loaderName.jar" }
+		}
+	}
 
-    into(layout.buildDirectory.dir("dist"))
+	into(layout.buildDirectory.dir("dist"))
 }

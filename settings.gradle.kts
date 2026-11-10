@@ -1,82 +1,82 @@
 pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven("https://maven.fabricmc.net/") { name = "FabricMC" }
-        maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
-        maven("https://maven.wagyourtail.xyz/releases") { name = "WagYourTail" }
-        maven("https://maven.wagyourtail.xyz/snapshots") { name = "WagYourTail Snapshots" }
-        maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
-        maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
-    }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == "xyz.wagyourtail.unimined") {
-                // Pin the Gradle 9 / current TinyRemapper compatibility fixes.
-                useModule("xyz.wagyourtail.unimined:unimined:1.4.2-20260917.005300-29")
-            }
-        }
-    }
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+		maven("https://maven.fabricmc.net/") { name = "FabricMC" }
+		maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
+		maven("https://maven.wagyourtail.xyz/releases") { name = "WagYourTail" }
+		maven("https://maven.wagyourtail.xyz/snapshots") { name = "WagYourTail Snapshots" }
+		maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
+		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
+	}
+	resolutionStrategy {
+		eachPlugin {
+			if (requested.id.id == "xyz.wagyourtail.unimined") {
+				// Pin the Gradle 9 / current TinyRemapper compatibility fixes.
+				useModule("xyz.wagyourtail.unimined:unimined:1.4.2-20260917.005300-29")
+			}
+		}
+	}
 }
 
 plugins {
-    // Check the latest version on https://stonecutter.kikugie.dev/blog/changes/0.9
-    id("dev.kikugie.stonecutter") version "0.9.8"
+	// Check the latest version on https://stonecutter.kikugie.dev/blog/changes/0.9
+	id("dev.kikugie.stonecutter") version "0.9.8"
 
-    // Used for cross-compat for 26.1+ and older versions (https://codeberg.org/KikuGie/loom-back-compat)
-    id("dev.kikugie.loom-back-compat") version "0.4.2"
+	// Used for cross-compat for 26.1+ and older versions (https://codeberg.org/KikuGie/loom-back-compat)
+	id("dev.kikugie.loom-back-compat") version "0.4.2"
 
-    // Sometimes it is needed to make Gradle run at all, so it doesn't hurt to have
-    // (https://github.com/gradle/foojay-toolchains)
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+	// Sometimes it is needed to make Gradle run at all, so it doesn't hurt to have
+	// (https://github.com/gradle/foojay-toolchains)
+	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 stonecutter {
-    create(rootProject) {
-        /**
-         * Creates version nodes for multiple loaders.
-         *
-         * This function will create subprojects named `versions/{project}-{loader}`.
-         * Each project has a logical [version], which should match the Minecraft version,
-         * whereas [project] is the arbitrary name part of the folder.
-         *
-         * Each project will also have a separate build script assigned depending on the loader,
-         * named `build.{loader}.gradle.kts`.
-         */
-        fun match(project: String, vararg loaders: String, version: String = project) {
-            for (loader in loaders) version("$project-$loader", version).buildscript("build.$loader.gradle.kts")
-        }
+	create(rootProject) {
+		/**
+		 * Creates version nodes for multiple loaders.
+		 *
+		 * This function will create subprojects named `versions/{project}-{loader}`.
+		 * Each project has a logical [version], which should match the Minecraft version,
+		 * whereas [project] is the arbitrary name part of the folder.
+		 *
+		 * Each project will also have a separate build script assigned depending on the loader,
+		 * named `build.{loader}.gradle.kts`.
+		 */
+		fun match(project: String, vararg loaders: String, version: String = project) {
+			for (loader in loaders) version("$project-$loader", version).buildscript("build.$loader.gradle.kts")
+		}
 
-        // See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
-        match("1.16.5", "forge")
-        match("1.19.4", "fabric")
-        match("1.20.1", "fabric")
-        // NeoForge's own early betas for these three (20.2.93, 20.3.8-beta, 20.5.21-beta)
-        // predate the moddev-bundle packaging this toolchain requires; fabric only.
-        match("1.20.2", "fabric")
-        match("1.20.3", "fabric")
-        match("1.20.4", "fabric", "neoforge")
-        match("1.20.5", "fabric")
-        match("1.20.6", "fabric", "neoforge")
-        match("1.21.1", "fabric", "neoforge")
-        match("1.21.2", "fabric", "neoforge")
-        match("1.21.3", "fabric", "neoforge")
-        match("1.21.4", "fabric", "neoforge")
-        match("1.21.5", "fabric", "neoforge")
-        match("1.21.6", "fabric", "neoforge")
-        match("1.21.7", "fabric", "neoforge")
-        match("1.21.8", "fabric", "neoforge")
-        match("1.21.9", "fabric", "neoforge")
-        match("1.21.10", "fabric", "neoforge")
-        match("1.21.11", "fabric", "neoforge")
-        // NeoForge never released a build for bare 26.1, only 26.1.1 onward.
-        match("26.1", "fabric")
-        match("26.1.1", "fabric", "neoforge")
-        match("26.1.2", "fabric", "neoforge")
-        match("26.2", "fabric", "neoforge")
-        match("26.3", "fabric", "neoforge")
-        vcsVersion = "26.3-fabric"
-    }
+		// See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
+		match("1.16.5", "forge")
+		match("1.19.4", "fabric")
+		match("1.20.1", "fabric")
+		// NeoForge's own early betas for these three (20.2.93, 20.3.8-beta, 20.5.21-beta)
+		// predate the moddev-bundle packaging this toolchain requires; fabric only.
+		match("1.20.2", "fabric")
+		match("1.20.3", "fabric")
+		match("1.20.4", "fabric", "neoforge")
+		match("1.20.5", "fabric")
+		match("1.20.6", "fabric", "neoforge")
+		match("1.21.1", "fabric", "neoforge")
+		match("1.21.2", "fabric", "neoforge")
+		match("1.21.3", "fabric", "neoforge")
+		match("1.21.4", "fabric", "neoforge")
+		match("1.21.5", "fabric", "neoforge")
+		match("1.21.6", "fabric", "neoforge")
+		match("1.21.7", "fabric", "neoforge")
+		match("1.21.8", "fabric", "neoforge")
+		match("1.21.9", "fabric", "neoforge")
+		match("1.21.10", "fabric", "neoforge")
+		match("1.21.11", "fabric", "neoforge")
+		// NeoForge never released a build for bare 26.1, only 26.1.1 onward.
+		match("26.1", "fabric")
+		match("26.1.1", "fabric", "neoforge")
+		match("26.1.2", "fabric", "neoforge")
+		match("26.2", "fabric", "neoforge")
+		match("26.3", "fabric", "neoforge")
+		vcsVersion = "26.3-fabric"
+	}
 }
 
 rootProject.name = "Bedbugs"

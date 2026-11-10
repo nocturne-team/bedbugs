@@ -15,22 +15,22 @@ import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 /*import net.minecraft.world.entity.monster.ZombifiedPiglin;*/
 
 public final class MonsterSleepCheck {
-    private MonsterSleepCheck() {
-    }
+	private MonsterSleepCheck() {
+	}
 
-    // Mirrors vanilla ServerPlayer.startSleepInBed's own box: +-8 X/Z, +-5 Y, bottom-centered on the bed.
-    public static List<Monster> findBlockingMonsters(Level level, BlockPos bedPos, Player player) {
-        Vec3 center = Vec3.atBottomCenterOf(bedPos);
-        AABB box = new AABB(
-            center.x() - 8.0, center.y() - 5.0, center.z() - 8.0,
-            center.x() + 8.0, center.y() + 5.0, center.z() + 8.0
-        );
-        // Since 1.21.2 the vanilla predicate requires a ServerLevel. On a remote client
-        // its only special case (ZombifiedPiglin anger) cannot be evaluated reliably.
-        // Keep the existing conservative client behavior: omit zombified piglins.
-        //? if >=1.21.2 {
-        return level.getEntitiesOfClass(Monster.class, box, monster -> !(monster instanceof ZombifiedPiglin));
-        //?} else
-        /*return level.getEntitiesOfClass(Monster.class, box, monster -> monster.isPreventingPlayerRest(player));*/
-    }
+	// Mirrors vanilla ServerPlayer.startSleepInBed's own box: +-8 X/Z, +-5 Y, bottom-centered on the bed.
+	public static List<Monster> findBlockingMonsters(Level level, BlockPos bedPos, Player player) {
+		Vec3 center = Vec3.atBottomCenterOf(bedPos);
+		AABB box = new AABB(
+			center.x() - 8.0, center.y() - 5.0, center.z() - 8.0,
+			center.x() + 8.0, center.y() + 5.0, center.z() + 8.0
+		);
+		// Since 1.21.2 the vanilla predicate requires a ServerLevel. On a remote client
+		// its only special case (ZombifiedPiglin anger) cannot be evaluated reliably.
+		// Keep the existing conservative client behavior: omit zombified piglins.
+		//? if >=1.21.2 {
+		return level.getEntitiesOfClass(Monster.class, box, monster -> !(monster instanceof ZombifiedPiglin));
+		//?} else
+		/*return level.getEntitiesOfClass(Monster.class, box, monster -> monster.isPreventingPlayerRest(player));*/
+	}
 }
