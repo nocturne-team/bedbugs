@@ -39,6 +39,8 @@ jobs:
 
   publish-modrinth:
     needs: build
+    # Manual runs only build; publishing needs a version tag.
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
