@@ -55,7 +55,7 @@ tasks {
             expand("java" to "JAVA_8")
             path = "bedbugs.mixins.json"
         }
-        exclude("fabric.mod.json", "bedbugs-fabric.mixins.json", "META-INF/neoforge.mods.toml", "*.ct", "*.classtweaker")
+        exclude("fabric.mod.json", "bedbugs-fabric.mixins.json", "META-INF/neoforge.mods.toml")
     }
 
     withType<Jar>().matching { it.name == "jar" || it.name == "sourcesJar" }.configureEach {

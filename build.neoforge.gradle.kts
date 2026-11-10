@@ -14,19 +14,6 @@ val requiredJava = when {
     else -> JavaVersion.VERSION_1_8
 }
 
-repositories {
-    /**
-     * Restricts dependency search of the given [groups] to the [maven URL][url],
-     * improving the setup speed.
-     */
-    fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
-        forRepository { maven(url) { name = alias } }
-        filter { groups.forEach(::includeGroup) }
-    }
-    strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
-    strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
-}
-
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -93,7 +80,7 @@ tasks {
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 
-        exclude("fabric.mod.json", "*.ct", "*.classtweaker", "bedbugs-forge.mixins.json")
+        exclude("fabric.mod.json", "bedbugs-forge.mixins.json")
     }
 
     named("createMinecraftArtifacts") {

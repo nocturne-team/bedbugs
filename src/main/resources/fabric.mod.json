@@ -7,7 +7,8 @@
 	"authors": ["0x00ACAB"],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/bedbugs",
-		"sources": "https://github.com/0x00ACAB/bedbugs"
+		"sources": "https://github.com/nocturne-team/bedbugs",
+		"issues": "https://github.com/nocturne-team/bedbugs/issues"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/bedbugs/icon.png",
@@ -23,7 +24,6 @@
 			}
 		}
 	},
-	"accessWidener": "bedbugs.ct",
 	"depends": {
 		"fabricloader": ">=${loader}",
 		"minecraft": "${minecraft}"

@@ -1,12 +1,14 @@
 modLoader="javafml"
 loaderVersion="[36,)"
 license="CC0-1.0"
+issueTrackerURL="https://github.com/nocturne-team/bedbugs/issues"
 
 [[mods]]
 modId="${id}"
 displayName="${name}"
 version="${version}"
 authors="0x00ACAB"
+displayURL="https://modrinth.com/mod/bedbugs"
 description="Highlight the monsters keeping you out of bed, right through walls."
 logoFile="assets/bedbugs/icon.png"
 # Client-only networking compatibility is registered through ExtensionPoint.DISPLAYTEST.

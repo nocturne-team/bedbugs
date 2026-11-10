@@ -1,4 +1,5 @@
 license = "CC0-1.0"
+issueTrackerURL = "https://github.com/nocturne-team/bedbugs/issues"
 
 modLoader="javafml"
 loaderVersion="[1,)"
@@ -11,8 +12,7 @@ authors = "0x00ACAB"
 description = "Highlight the monsters keeping you out of bed, right through walls."
 
 logoFile = "assets/bedbugs/icon.png"
-#displayURL = "..."
-#issueTrackerUrl = "..."
+displayURL = "https://modrinth.com/mod/bedbugs"
 
 [[mixins]]
 config = "bedbugs.mixins.json"

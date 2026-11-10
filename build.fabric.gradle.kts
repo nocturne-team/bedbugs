@@ -15,39 +15,13 @@ val requiredJava: JavaVersion = when {
     else -> JavaVersion.VERSION_1_8
 }
 
-// This can be used for publishing on Modrinth and Curseforge
-val compatibleVersions: List<String> = sc.properties.rawOrNull("mod", "mc_releases")
-    ?.asList().orEmpty().map { it.toString() }
-
-repositories {
-    /**
-     * Restricts dependency search of the given [groups] to the [maven URL][url],
-     * improving the setup speed.
-     */
-    fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
-        forRepository { maven(url) { name = alias } }
-        filter { groups.forEach(::includeGroup) }
-    }
-    strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
-    strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
-}
-
 dependencies {
-    /**
-     * Fetches only the required Fabric API modules to not waste time downloading all of them for each version.
-     * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
-     */
-    fun fapi(vararg modules: String) {
-        for (it in modules) modImplementation(fabricApi.module(it, sc.properties["deps.fabric_api"]))
-    }
-
     minecraft("com.mojang:minecraft:${sc.current.version}")
     // Applies Mojang Mappings on obfuscated versions
     loomx.applyMojangMappings()
 
     // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
-    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-registry-sync-v0")
 
     testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -57,10 +31,6 @@ dependencies {
 
 loom {
     fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
-    accessWidenerPath = sc.process(
-        rootProject.file("src/main/resources/bedbugs.ct"),
-        "build/processed.ct"
-    )
 
     decompilerOptions.named("vineflower") {
         options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
@@ -101,7 +71,7 @@ tasks {
             register("name", sc.properties["mod.name"])
             register("version", sc.properties["mod.version"])
             register("minecraft", sc.properties["mod.mc_compat"])
-            register("loader", Regex("\\d+\\.\\d+").find(sc.properties.get<String>("deps.fabric_loader"))!!.value)
+            register("loader", sc.properties["deps.fabric_loader_min"])
         }
 
         filesMatching("fabric.mod.json") { expand(props) }
