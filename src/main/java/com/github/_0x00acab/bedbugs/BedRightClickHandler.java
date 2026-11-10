@@ -1,9 +1,6 @@
 package com.github._0x00acab.bedbugs;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -14,21 +11,14 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 //? if >=26.3
 import net.minecraft.world.level.block.AbstractBedBlock;
 
-import java.util.List;
-
 public final class BedRightClickHandler {
 	private BedRightClickHandler() {
 	}
 
-	public static void handle(Level level, BlockPos pos, Player player, InteractionHand hand) {
+	// Only remembers the bed. Monsters are marked once the server refuses the
+	// sleep attempt, see SleepRefusalHandler.
+	public static void handle(Level level, BlockPos pos) {
 		if (!level.isClientSide()) {
-			return;
-		}
-		// Loaders report the click once per hand; sneaking skips the bed entirely.
-		if (hand != InteractionHand.MAIN_HAND || player.isShiftKeyDown()) {
-			return;
-		}
-		if (player.isCreative() || player.isSpectator()) {
 			return;
 		}
 		HighlightTracker.INSTANCE.ensureLevel(level);
@@ -39,10 +29,7 @@ public final class BedRightClickHandler {
 		if (state.getValue(bedPartProperty()) != BedPart.HEAD) {
 			pos = pos.relative(state.getValue(HorizontalDirectionalBlock.FACING));
 		}
-		List<Monster> blocking = MonsterSleepCheck.findBlockingMonsters(level, pos, player);
-		for (Monster monster : blocking) {
-			HighlightTracker.INSTANCE.highlight(monster.getId());
-		}
+		HighlightTracker.INSTANCE.rememberBedClick(pos.asLong());
 	}
 
 	private static boolean isBed(BlockState state) {

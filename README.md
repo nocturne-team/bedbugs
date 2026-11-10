@@ -16,7 +16,13 @@ Try to sleep, get the "You may not rest now; there are monsters nearby." message
 
 Bedbugs is client-side only. It works on any server and does not need to be installed there. It has no dependencies, so Fabric API is not required.
 
+Markers only appear when the game refuses to let you sleep because of monsters. Clicking a bed in the daytime, or sleeping successfully, marks nothing.
+
 The through-wall markers are limited to the sleep-check range, so they show the monsters that are actually keeping you awake. They fade after four seconds.
+
+Zombified piglins only block sleep while angry at you, and servers do not tell the client which ones are. Bedbugs marks the ones in an attack pose, or all of them if nothing else nearby could be the cause.
+
+The mod reacts to the vanilla "You may not rest now; there are monsters nearby" message. A server that replaces that message with its own text will not trigger the markers.
 
 Shader packs and resource packs may change how the markers look.
 

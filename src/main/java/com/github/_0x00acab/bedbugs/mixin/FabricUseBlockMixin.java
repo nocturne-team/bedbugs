@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FabricUseBlockMixin {
 	@Inject(method = "useItemOn", at = @At("HEAD"))
 	private void bedbugs$useItemOn(LocalPlayer player, InteractionHand hand, BlockHitResult blockHit, CallbackInfoReturnable<InteractionResult> cir) {
-		BedRightClickHandler.handle(player.level(), blockHit.getBlockPos(), player, hand);
+		BedRightClickHandler.handle(player.level(), blockHit.getBlockPos());
 	}
 }
 //?}

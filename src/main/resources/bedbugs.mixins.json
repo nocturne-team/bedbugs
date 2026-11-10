@@ -6,7 +6,8 @@
 		"EntityTeamColorMixin"
 	],
 	"client": [
-		"MinecraftGlowMixin"
+		"MinecraftGlowMixin",
+		"SleepMessageMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

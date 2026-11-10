@@ -117,4 +117,36 @@ class HighlightTrackerTest {
 		assertTrue(tracker.isHighlighted(2));
 		assertTrue(tracker.trackedCount() <= 1);
 	}
+
+	@Test
+	void bedClickIsHandedOutOnceWhileRecent() {
+		long[] now = {0L};
+		HighlightTracker tracker = new HighlightTracker(() -> now[0]);
+		tracker.rememberBedClick(123L);
+		now[0] = HighlightTracker.BED_CLICK_WINDOW_MILLIS - 1;
+
+		assertEquals(Long.valueOf(123L), tracker.takeBedClick());
+		assertNull(tracker.takeBedClick());
+	}
+
+	@Test
+	void staleBedClickIsDropped() {
+		long[] now = {0L};
+		HighlightTracker tracker = new HighlightTracker(() -> now[0]);
+		tracker.rememberBedClick(123L);
+		now[0] = HighlightTracker.BED_CLICK_WINDOW_MILLIS;
+
+		assertNull(tracker.takeBedClick());
+	}
+
+	@Test
+	void worldChangeForgetsTheBedClick() {
+		HighlightTracker tracker = new HighlightTracker(() -> 0L);
+		tracker.ensureLevel(new Object());
+		tracker.rememberBedClick(123L);
+
+		tracker.ensureLevel(new Object());
+
+		assertNull(tracker.takeBedClick());
+	}
 }

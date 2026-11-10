@@ -47,6 +47,7 @@ class MixinTargetTest {
 	void everyInjectionMatchesMinecraftAndItsCallbackArguments() throws IOException {
 		checkMixin("EntityTeamColorMixin");
 		checkMixin("MinecraftGlowMixin");
+		checkMixin("SleepMessageMixin");
 		//? if fabric
 		checkMixin("FabricUseBlockMixin");
 	}

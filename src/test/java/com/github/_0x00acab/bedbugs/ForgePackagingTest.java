@@ -37,6 +37,7 @@ class ForgePackagingTest {
 			assertFalse(config.contains("\"mixins\""), "No mixins may run on a dedicated server");
 			assertTrue(config.contains("EntityTeamColorMixin"));
 			assertTrue(config.contains("MinecraftGlowMixin"));
+			assertTrue(config.contains("SleepMessageMixin"));
 			assertTrue(config.contains("bedbugs.mixins-refmap.json"));
 			assertTrue(text(jar, "META-INF/mods.toml").contains("versionRange=\"[1.16.5]\""));
 			assertNotNull(jar.getJarEntry("LICENSE-bedbugs"));
@@ -77,7 +78,7 @@ class ForgePackagingTest {
 				assertTrue(methods.contains(selector), selector);
 				count++;
 			}
-			assertEquals(3, count, "Color, glow and world teardown must all be remapped");
+			assertEquals(4, count, "Color, glow, world teardown and sleep message must all be remapped");
 		}
 	}
 

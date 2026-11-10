@@ -15,7 +15,7 @@ public class BedbugsNeoForge {
 		BedbugsConfig.load();
 		LOGGER.info("Bedbugs loaded");
 		NeoForge.EVENT_BUS.addListener((PlayerInteractEvent.RightClickBlock event) ->
-			BedRightClickHandler.handle(event.getLevel(), event.getPos(), event.getEntity(), event.getHand()));
+			BedRightClickHandler.handle(event.getLevel(), event.getPos()));
 	}
 }
 *///?}

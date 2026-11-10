@@ -27,7 +27,7 @@ public final class BedbugsForge {
 	public static final class ClientEvents {
 		@SubscribeEvent
 		public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-			BedRightClickHandler.handle(event.getWorld(), event.getPos(), event.getPlayer(), event.getHand());
+			BedRightClickHandler.handle(event.getWorld(), event.getPos());
 		}
 	}
 }

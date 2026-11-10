@@ -6,11 +6,15 @@ import java.util.function.LongSupplier;
 
 public final class HighlightTracker {
 	public static final long HIGHLIGHT_DURATION_MILLIS = 4_000L;
+	// How long a bed click waits for the server's refusal; generous for laggy servers.
+	public static final long BED_CLICK_WINDOW_MILLIS = 5_000L;
 	public static final HighlightTracker INSTANCE = new HighlightTracker();
 
 	private final Map<Integer, Long> expiryByEntityId = new HashMap<>();
 	private final LongSupplier clock;
 	private Object level;
+	private Long clickedBed;
+	private long clickedBedExpiry;
 
 	private HighlightTracker() {
 		this(() -> System.nanoTime() / 1_000_000L);
@@ -26,6 +30,19 @@ public final class HighlightTracker {
 	public void clear() {
 		expiryByEntityId.clear();
 		level = null;
+		clickedBed = null;
+	}
+
+	public void rememberBedClick(long bedPos) {
+		clickedBed = bedPos;
+		clickedBedExpiry = clock.getAsLong() + BED_CLICK_WINDOW_MILLIS;
+	}
+
+	/** The last clicked bed, once, and only while the click is recent. */
+	public Long takeBedClick() {
+		Long bed = clickedBed;
+		clickedBed = null;
+		return bed != null && clock.getAsLong() < clickedBedExpiry ? bed : null;
 	}
 
 	HighlightTracker(LongSupplier clock) {

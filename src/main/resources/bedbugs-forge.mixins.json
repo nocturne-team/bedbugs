@@ -4,7 +4,8 @@
 	"compatibilityLevel": "${java}",
 	"client": [
 		"EntityTeamColorMixin",
-		"MinecraftGlowMixin"
+		"MinecraftGlowMixin",
+		"SleepMessageMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
